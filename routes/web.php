@@ -10,18 +10,35 @@
 | to using a Closure or controller method. Build something great!
 |
 */
+Route::group(['middleware'=>['web']],function (){
+    Route::get('/',[
+        'uses'=> 'PagesController@getIndex',
+        'as'=>'pages.welcome'
+    ]) ;
 
-Route::get('/',[
-    'uses'=> 'PagesController@getIndex',
-    'as'=>'pages.welcome'
-]) ;
+    Route::get('/about',[
+        'uses'=> 'PagesController@getAbout',
+        'as'=>'pages.about'
+    ]) ;
 
-Route::get('/about',[
-    'uses'=> 'PagesController@getAbout',
-    'as'=>'pages.about'
-]) ;
+    Route::get('/contact',[
+        'uses'=> 'PagesController@getContact',
+        'as'=>'pages.contact'
+    ]) ;
 
-Route::get('/contact',[
-    'uses'=> 'PagesController@getContact',
-    'as'=>'pages.contact'
-]) ;
+    Route::get('/posts/create',[
+        'uses'=> 'PostController@getCreate',
+        'as'=>'posts.create'
+    ]);
+
+    Route::post('/posts/create',[
+        'uses'=> 'PostController@postCreate',
+        'as'=>'posts.create'
+    ]);
+
+    Route::get('/posts/{post}',[
+        'uses'=> 'PostController@getShow',
+        'as'=>'posts.show'
+    ]);
+
+});
