@@ -8,11 +8,12 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Laravel Blog</a>
+            <a class="navbar-brand" href="{{route('pages.welcome')}}">Laravel Blog</a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav ">
                 <li class="{{Request::is('/') ?"active":""}} "><a href="{{route('pages.welcome')}}"> Home <span class="sr-only">(current)</span></a> </li>
+                <li class="{{Request::is('blog') ?"active":""}} "><a href="{{route('blog.index')}}">Blog</a></li>
                 <li class="{{Request::is('about') ?"active":""}} "><a href="{{route('pages.about')}}">About</a></li>
                 <li class="{{Request::is('contact') ?"active":""}} "><a href="{{route('pages.contact')}}">Contact</a></li>
             </ul>
@@ -27,7 +28,7 @@
                            role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user" aria-hidden="true"></i> User Account <span class="caret"></span></a>
                         <ul class="dropdown-menu">
 
-                            <li> <a href="#">User Profile</a></li>
+                            <li> <a href="{{route('posts.index')}}">Posts</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="#">Logout</a></li>
 
