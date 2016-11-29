@@ -1,19 +1,23 @@
 @extends('main')
 
 @section('title')
-   Larravel blog | View Post
+    Laravel Blog | Edit Posts
 @endsection
 
 @section('content')
     <div class="row">
+        {!! Form::model($posts, ['route'=>['posts.update', $posts->id], 'method'=>'PUT']) !!}
         <div class="col-md-8">
-            <h1>{{$posts->title}}</h1>
-            <p class="lead">{{$posts->body}}</p>
+            {{Form::label('title','Title:')}}
+            {{Form::text('title',null, ["class"=>'form-control input-lg'])}}
+
+            {{Form::label('body', 'Body:',['class'=>'form-spacing-top'])}}
+            {{Form::textarea('body',null, ['class'=>'form-control'])}}
         </div>
         <div class="col-md-4">
             <div class="well">
                 <dl class="dl-horizontal">
-                    <dt>Created at:</dt>
+                    <dt>Created At:</dt>
                     <dd>{{date('M j, Y  h:iA',strtotime($posts->created_at))}}</dd>
                 </dl>
                 <dl class="dl-horizontal">
@@ -23,18 +27,15 @@
                 <hr>
                 <div class="row">
                     <div class="col-sm-6">
-                        <a href="{{route('posts.edit',$posts->id)}}" class="btn btn-block btn-primary">Edit</a>
+                        <a href="{{route('posts.show',$posts->id)}}" class="btn btn-block btn-danger">Cancel</a>
                     </div>
                     <div class="col-sm-6">
-                        {!! Form::open(['route'=>['posts.destroy',$posts->id],'method'=>'DELETE']) !!}
-                            {{Form::submit('Delete',['class'=>'btn btn-block btn-danger'])}}
-                        {!! Form::close() !!}
-
+                        {{Form::submit('Save Changes',['class'=>'btn btn-block btn-success'])}}
                     </div>
 
                 </div>
             </div>
         </div>
+        {!! Form::close() !!}
     </div>
-
 @endsection

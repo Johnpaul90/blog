@@ -26,19 +26,6 @@ Route::group(['middleware'=>['web']],function (){
         'as'=>'pages.contact'
     ]) ;
 
-    Route::get('/posts/create',[
-        'uses'=> 'PostController@getCreate',
-        'as'=>'posts.create'
-    ]);
-
-    Route::post('/posts/create',[
-        'uses'=> 'PostController@postCreate',
-        'as'=>'posts.create'
-    ]);
-
-    Route::get('/posts/{post}',[
-        'uses'=> 'PostController@getShow',
-        'as'=>'posts.show'
-    ]);
+    Route::resource('posts','PostController');
 
 });

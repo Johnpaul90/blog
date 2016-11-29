@@ -12,9 +12,9 @@
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav ">
-                <li class="active"><a href="{{route('pages.welcome')}}"> Home <span class="sr-only">(current)</span></a> </li>
-                <li><a href="{{route('pages.about')}}">About</a></li>
-                <li><a href="{{route('pages.contact')}}">Contact</a></li>
+                <li class="{{Request::is('/') ?"active":""}} "><a href="{{route('pages.welcome')}}"> Home <span class="sr-only">(current)</span></a> </li>
+                <li class="{{Request::is('about') ?"active":""}} "><a href="{{route('pages.about')}}">About</a></li>
+                <li class="{{Request::is('contact') ?"active":""}} "><a href="{{route('pages.contact')}}">Contact</a></li>
             </ul>
 
 
