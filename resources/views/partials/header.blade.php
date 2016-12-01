@@ -22,22 +22,21 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-
+                    @if(Auth::check())
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"
-                           role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user" aria-hidden="true"></i> User Account <span class="caret"></span></a>
+                           role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user" aria-hidden="true"></i>Hello, {{Auth::user()->name}}<span class="caret"></span></a>
                         <ul class="dropdown-menu">
-
                             <li> <a href="{{route('posts.index')}}">Posts</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="#">Logout</a></li>
-
-                            <li> <a href="#">Signup</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">Signin</a></li>
-                            <li role="separator" class="divider"></li>
+                            <li><a href="{{route('auth.logout')}}">Logout</a></li>
                         </ul>
                     </li>
+                        @elseif(Request::is('auth/login'))
+                            <a href="{{route('auth.register')}}" class="btn btn-default">Register</a>
+                        @else
+                            <a href="{{route('auth.login')}}" class="btn btn-default">Login</a>
+                        @endif
                 </ul>
             </div><!-- /.navbar-collapse -->
         </div>

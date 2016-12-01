@@ -1,7 +1,7 @@
 @extends('main')
 
 @section('title')
-    Laravel Blog
+    Laravel Blog | Homepage
 @endsection
 @section('content')
          <div class="row">
