@@ -8,8 +8,8 @@
     <div class="row">
         <div class="col-md-12">
             <h1>About Me</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus adipisci amet cum cupiditate
-            deserunt dolore eaque error expedita fugiat fugit, officia perspiciatis qui rem sed soluta sunt tempore temporibus unde.</p>
+         <p>Name:   {{$data['fullname']}}</p>
+        <p>Email: {{$data['email']}}</p>
         </div>
     </div>
 @endsection

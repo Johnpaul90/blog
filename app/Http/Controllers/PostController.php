@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Post;
+use App\Tag;
 use Illuminate\Http\Request;
 use Session;
 
@@ -24,7 +26,9 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('posts.create');
+        $categories = Category::all();
+        $tags = Tag::all();
+        return view('posts.create')->with('categories', $categories)->with('tags',$tags);
     }
 
     /**
@@ -35,9 +39,12 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+
         $this->validate($request,[
             'title'=>'required|max:255',
             'slug'=> 'required|alpha_dash|min:5|max:255|unique:posts,slug',
+            'category_id'=>'required|integer',
+            'tags'=>'required',
             'body'=>'required'
         ]);
 
@@ -45,9 +52,12 @@ class PostController extends Controller
         $post= new Post;
         $post->title = $request->title;
         $post->slug = $request->slug;
+        $post->category_id = $request->category_id;
         $post->body = $request->body;
 
         $post->save();
+
+        $post->tags()->sync($request->tags,false);
 
         Session::flash('success','The blog post was successfully saved!');
         return redirect()->route('posts.show', $post->id);
@@ -63,6 +73,7 @@ class PostController extends Controller
     public function show($id)
     {
         $post = Post::find($id);
+
         return view('posts.show')->with('posts', $post);
     }
 
@@ -75,7 +86,17 @@ class PostController extends Controller
     public function edit($id)
     {
         $post= Post::find($id);
-        return view('posts.edit')->with('posts',$post);
+        $categories = Category::all();
+        $cats=[];
+        foreach($categories as $category){
+            $cats[$category->id]=$category->name;
+        }
+        $tags =Tag::all();
+        $tgs=[];
+        foreach($tags as $tag){
+            $tgs[$tag->id]=$tag->name;
+        }
+        return view('posts.edit')->with('posts',$post)->with('categories',$cats)->with('tags',$tgs);
     }
 
     /**
@@ -91,12 +112,14 @@ class PostController extends Controller
         if ($request->input('slug')== $post->slug){
             $this->validate($request,[
                 'title'=>'required|max:255',
+                'category_id'=>'required|integer',
                 'body'=>'required'
             ]);
         }else{
             $this->validate($request,[
                 'title'=>'required|max:255',
                 'slug'=> 'required|alpha_dash|min:5|max:255|unique:posts,slug',
+                'category'=>'required|integer',
                 'body'=>'required'
             ]);
 
@@ -106,9 +129,16 @@ class PostController extends Controller
 
         $post->title = $request->input('title');
         $post->slug = $request->input('slug');
+        $post->category_id = $request->input('category_id');
         $post->body =  $request->input('body');
 
         $post->save();
+        if(isset($request->tags)){
+            $post->tags()->sync($request->tags,true);
+        }else{
+            $post->tags()->sync([]);
+        }
+
 
         Session::flash('success','Post successfully updated');
         return redirect()->route('posts.show',$post->id);
@@ -124,6 +154,7 @@ class PostController extends Controller
     public function destroy($id)
     {
         $post = Post::find($id);
+        $post->tags()->detach();
         $post->delete();
         Session::flash('success', 'Post sccessfully deleted');
         return redirect()->route('posts.index');

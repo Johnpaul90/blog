@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -28,12 +28,17 @@
                            role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user" aria-hidden="true"></i>Hello, {{Auth::user()->name}}<span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li> <a href="{{route('posts.index')}}">Posts</a></li>
+                            <li><a href="{{route('categories.index')}}">Categories</a></li>
+                            <li><a href="{{route('tags.index')}}">Tags</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="{{route('auth.logout')}}">Logout</a></li>
                         </ul>
                     </li>
                         @elseif(Request::is('auth/login'))
                             <a href="{{route('auth.register')}}" class="btn btn-default">Register</a>
+                    @elseif(Request::is('/'))
+                        <a href="{{route('auth.login')}}" class="btn btn-default">Login</a>
+                        <a href="{{route('auth.register')}}" class="btn btn-default">Register</a>
                         @else
                             <a href="{{route('auth.login')}}" class="btn btn-default">Login</a>
                         @endif

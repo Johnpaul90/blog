@@ -69,6 +69,11 @@ Route::group(['middleware'=>['web']],function (){
         'as'=>'pages.contact'
     ]) ;
 
+    Route::post('/contact',[
+        'uses'=> 'PagesController@postContact',
+        'as'=>'pages.contact'
+
+    ]);
 });
 
 Route::group(['middleware'=>'auth'], function(){
@@ -88,9 +93,26 @@ Route::group(['middleware'=>'auth'], function(){
         'as'=>'blog.index'
     ]) ;
     /**
-     * CRUD
+     * CRUD FOR POSTS
      */
 
     Route::resource('posts','PostController');
 
+    /**
+     * CRUD FOR CATEGORIES
+     */
+    Route::resource('categories', 'CategoryController',['except'=>['create']]);
+
+    /**
+     * CRUD FOR TAGS
+     */
+    Route::resource('tags', 'TagController',['except'=>['create']]);
+
+    /**
+     * CRUD FOR COMMENTS
+     */
+    Route::post('comments/{post_id}',[
+        'uses'=> 'CommentsController@store',
+        'as'=> 'comments.store'
+    ]);
 });

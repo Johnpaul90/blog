@@ -7,14 +7,35 @@
 @section('content')
     <div class="row">
         <div class="col-md-8">
-            <h1>{{$posts->title}}</h1>
-            <p class="lead">{{$posts->body}}</p>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h1>{{$posts->title}}</h1>
+                </div>
+                <div class="panel-body">
+                    <div class="panel panel-default">
+                        <div class="panel-body" style="background-color:lightgray">
+                            <p>{{$posts->body}}</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="tags">
+                @foreach($posts->tags as $tag)
+                    <span class="label label-default">{{$tag->name}}</span>
+
+                @endforeach
+            </div>
         </div>
         <div class="col-md-4">
             <div class="well">
                 <dl class="dl-horizontal">
                     <label>Url:</label>
                     <p><a href="{{route('blog.single',$posts->slug)}}">{{route('blog.single',$posts->slug)}}</a></p>
+                </dl>
+                <dl class="dl-horizontal">
+                    <label>Category:</label>
+                    <p>{{$posts->category->name}}</p>
                 </dl>
                 <dl class="dl-horizontal">
                     <label>Created at:</label>

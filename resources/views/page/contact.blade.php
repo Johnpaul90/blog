@@ -7,7 +7,8 @@
 @section('content')
     <div class="row">
         <div class="col-md-5 col-md-offset-3">
-            <form action="#" method="post">
+            <form action="{{route('pages.contact')}}" method="post">
+                {{csrf_field()}}
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input type="text" name="email" class="form-control" id="email">
