@@ -3,6 +3,19 @@
 @section('title')
     Laravel Blog - Contact me
 @endsection
+@section('styles')
+    <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            plugins: 'link code',
+            menu :{
+                view:{title: 'Edit', items:'cut, copy, paste'}
+            }
+        });
+    </script>
+@endsection
+
 
 @section('content')
     <div class="row">

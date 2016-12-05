@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Mews\Purifier\Facades\Purifier;
 use Session;
 
 class PagesController extends Controller
@@ -38,7 +39,7 @@ class PagesController extends Controller
         $data =[
             'email'=> $request->email,
             'subject'=> $request->subject,
-            'bodyMessage'=> $request->message
+            'bodyMessage'=> Purifier::clean($request->message)
         ];
 
         Mail::send('emails.contact', $data, function($message)use($data){

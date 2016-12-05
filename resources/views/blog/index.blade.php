@@ -25,7 +25,7 @@
                                         <div class="panel panel-default">
                                             <div class="panel-body">
                                                 <h5>Published: {{date('M j,Y', strtotime($post->created_at))}} at {{date('h:i A', strtotime($post->created_at))}} </h5>
-                                                <p>{{substr($post->body,0,400)}} {{strlen($post->body)>400? "...":""}}</p>
+                                                <p>{{substr(strip_tags($post->body),0,400)}} {{strlen(strip_tags($post->body))>400? "...":""}}</p>
                                                 <a href="{{route('blog.single', $post->slug)}}" class="btn btn-primary">Read more</a>
                                             </div>
                                         </div>

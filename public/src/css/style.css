@@ -5,3 +5,50 @@
 .form-spacing-top{
     margin-top: 30px;
 }
+.comment{
+    margin-bottom: 45px;
+    margin-top: 40px;
+}
+.author-image{
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    float: left;
+}
+.author-name{
+    float: left;
+    margin-left: 15px;
+}
+.author-name>h4{
+    margin: 5px 0px;
+}
+.author-time{
+    font-size: 11px;
+    font-style: italic;
+    color: #aaa;
+}
+.comment-content{
+    clear: both;
+    margin-left: 65px;
+    font-size: 16px;
+    line-height: 1.2em;
+}
+.comment-title{
+    margin-bottom: 60px;
+    margin-top: 30px;
+}
+.comment-title>span{
+    margin-right: 15px;
+}
+#backend-comments{
+    margin-top: 50px;
+}
+.space-top{
+    margin-top: 30px;
+}
+.space-bottom{
+    margin-bottom: 30px;
+}
+.space-top2{
+    margin-top: 80px;
+}

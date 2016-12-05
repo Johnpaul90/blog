@@ -6,6 +6,7 @@ use App\Comment;
 use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Mews\Purifier\Facades\Purifier;
 
 class CommentsController extends Controller
 {
@@ -46,7 +47,7 @@ class CommentsController extends Controller
         $comment = new Comment();
         $comment->name =$request->name;
         $comment->email = $request->email;
-        $comment->comment = $request->comment;
+        $comment->comment =Purifier::clean($request->comment);
         $comment->approved =true;
         $comment->post()->associate($posts);
 
@@ -75,7 +76,9 @@ class CommentsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $comment = Comment::find($id);
+
+        return view('comments.edit')->with('comments',$comment);
     }
 
     /**
@@ -87,17 +90,24 @@ class CommentsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $comment = Comment::find($id);
+
+        $comment->comment = Purifier::clean($request->comment);
+        $comment->save();
+
+        return redirect()->route('blog.single',[$comment->post->slug]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+     public function delete($id){
+         $comment = Comment::find($id);
+         return view('comments.delete')->with('comments', $comment);
+     }
     public function destroy($id)
     {
-        //
+        $comment = Comment::find($id);
+        $post_id =$comment->post->id;
+        $comment->delete();
+
+        return redirect()->route('posts.show',$post_id);
     }
 }

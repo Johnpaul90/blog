@@ -6,25 +6,46 @@
 
 @section('styles')
     {!! Html::style('src/css/select2.min.css') !!}
+    <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            plugins: 'link code emoticons',
+            menu :{
+                view:{title: 'Edit', items:'cut, copy, paste'}
+            }
+        });
+    </script>
 @endsection
 
 
 @section('content')
     <div class="row">
-        {!! Form::model($posts, ['route'=>['posts.update', $posts->id], 'method'=>'PUT']) !!}
-        <div class="col-md-8">
-            {{Form::label('title','Title:')}}
-            {{Form::text('title',null, ["class"=>'form-control input-lg'])}}
+        {!! Form::model($posts, ['route'=>['posts.update', $posts->id], 'method'=>'PUT', 'files'=>true]) !!}
+        <div class="col-md-8 col-md-offset-2">
+            <div class="row">
+                <div class="col-md-6">
+                    {{Form::label('title','Title:')}}
+                    {{Form::text('title',null, ["class"=>'form-control input-lg'])}}
+                </div>
+                <div class="col-md-6">
+                    {{Form::label('slug','Slug:')}}
+                    {{Form::text('slug',null, ["class"=>'form-control input-lg'])}}
 
-            {{Form::label('slug','Slug:',['class'=>' form-spacing-top'])}}
-            {{Form::text('slug',null, ["class"=>'form-control input-lg'])}}
+                </div>
+                <div class="col-md-6">
+                    {{Form::label('category_id', 'Category',['class'=>'form-spacing-top'])}}
+                    {{Form::select('category_id',$categories, null,['class'=>'form-control'])}}
 
-            {{Form::label('category_id', 'Category',['class'=>'form-spacing-top'])}}
-            {{Form::select('category_id',$categories, null,['class'=>'form-control'])}}
+                </div>
+                <div class="col-md-6">
+                    {{Form::label('tags', 'Tags',['class'=>'form-spacing-top'])}}
+                    {{Form::select('tags[]',$tags, null,['class'=>'form-control select2-multi', 'multiple'=>'multiple'])}}
 
-            {{Form::label('tags', 'Tags',['class'=>'form-spacing-top'])}}
-            {{Form::select('tags[]',$tags, null,['class'=>'form-control select2-multi', 'multiple'=>'multiple'])}}
-
+                </div>
+            </div>
+            {{Form::label('featured_image', 'Update Featured Image',['class'=>'space-top'])}}
+            {{Form::file('featured_image',['class'=>'form-control'])}}
 
             {{Form::label('body', 'Body:',['class'=>'form-spacing-top'])}}
             {{Form::textarea('body',null, ['class'=>'form-control'])}}
