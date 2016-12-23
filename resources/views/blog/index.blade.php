@@ -5,8 +5,6 @@
 @endsection
 
 @section('content')
-    <div class="panel panel-default">
-        <div class="panel-body">
             <div class="row">
                         <div class="col-md-12 text-center" >
                             <h1>Blog</h1>
@@ -37,7 +35,5 @@
                     <div class="text-center">
                         {!! $posts->links() !!}
                     </div>
-            </div>
-        </div>
 
 @endsection

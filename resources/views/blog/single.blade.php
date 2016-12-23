@@ -25,7 +25,7 @@
                         </div>
                         <div class="panel-body">
                             <div class="panel panel-default">
-                                <div class="panel-body" style="background-color:lightgray">
+                                <div class="panel-body"  style="background-color:lightgray">
                                     <p>{!! $posts->body !!}</p>
                                 </div>
                             </div>

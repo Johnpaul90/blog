@@ -1,3 +1,4 @@
+
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -10,8 +11,8 @@
             </button>
             <a class="navbar-brand" href="{{route('pages.welcome')}}">Laravel Blog</a>
         </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav ">
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1 navigation">
+            <ul class="nav navbar-nav " >
                 <li class="{{Request::is('/') ?"active":""}} "><a href="{{route('pages.welcome')}}"> Home <span class="sr-only">(current)</span></a> </li>
                 <li class="{{Request::is('blog') ?"active":""}} "><a href="{{route('blog.index')}}">Blog</a></li>
                 <li class="{{Request::is('about') ?"active":""}} "><a href="{{route('pages.about')}}">About</a></li>
@@ -25,7 +26,9 @@
                     @if(Auth::check())
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"
-                           role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user" aria-hidden="true"></i>Hello, {{Auth::user()->name}}<span class="caret"></span></a>
+                           role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user" aria-hidden="true"></i>
+
+                           <span class="hello">Hello, {{Auth::user()->name}}</span><span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li> <a href="{{route('posts.index')}}">Posts</a></li>
                             <li><a href="{{route('categories.index')}}">Categories</a></li>
@@ -35,12 +38,12 @@
                         </ul>
                     </li>
                         @elseif(Request::is('auth/login'))
-                            <a href="{{route('auth.register')}}" class="btn btn-default">Register</a>
+                            <a href="{{route('auth.register')}}" class="btn btn-default re">Register</a>
                     @elseif(Request::is('/'))
-                        <a href="{{route('auth.login')}}" class="btn btn-default">Login</a>
-                        <a href="{{route('auth.register')}}" class="btn btn-default">Register</a>
+                        <a href="{{route('auth.login')}}" class="btn btn-default re">Login</a>
+                        <a href="{{route('auth.register')}}" class="btn btn-default re">Register</a>
                         @else
-                            <a href="{{route('auth.login')}}" class="btn btn-default">Login</a>
+                            <a href="{{route('auth.login')}}" class="btn btn-default re">Login</a>
                         @endif
                 </ul>
             </div><!-- /.navbar-collapse -->
